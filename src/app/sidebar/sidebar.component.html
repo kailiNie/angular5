@@ -35,13 +35,14 @@
         <font style="vertical-align: inherit;">HEADER</font></font>
         </li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active">
-          <a href="javaScript:;" (click)="nav('home')">
+        <li class="active" *ngFor="let route of routers">
+          <a href="javaScript:;" (click)="nav(route)">
             <i class="fa fa-link"></i> 
-            <span><font style="vertical-align: inherit;">首页</font></span>
+            <span><font style="vertical-align: inherit;">{{route.name}}</font></span>
           </a>
         </li>
-        <li><a href="javaScript:;" (click)="nav('tableList')"><i class="fa fa-link"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">股票管理</font></font></span></a></li>
+
+   
        
    </ul>
       <!-- /.sidebar-menu -->

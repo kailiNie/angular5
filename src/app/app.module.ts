@@ -1,9 +1,10 @@
 /**
  * 模块
  */
-import { BrowserModule } from '@angular/platform-browser';
+ 
 import { NgModule } from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -12,12 +13,14 @@ import { LineComponent } from './load/line/line.component';
 import { TableListComponent } from './table/table-list/table-list.component' ;
 import { StartComponent } from './control/start/start.component' ;
 import { Routes,RouterModule} from '@angular/router';
-import { HomeComponent } from './home/home.component' ;
+import { HomeComponent } from './home/home.component';
+import { AnimateComponent } from './animate/animate.component'  ;
 
 
 const roteConfig :Routes = [
   {path:'home',component:HomeComponent},
-  {path :'tableList',component:TableListComponent } 
+  {path :'tableList',component:TableListComponent } ,
+  {path:'animate',component:AnimateComponent}
 ]
 
 @NgModule({
@@ -29,11 +32,12 @@ const roteConfig :Routes = [
     FooterComponent,
     StartComponent,
     HomeComponent,
-    TableListComponent  
+    TableListComponent,
+    AnimateComponent
   ],
   imports: [
     BrowserModule, //依赖模块
-    // FormsModule,
+    BrowserAnimationsModule,
     // HttpModule
     RouterModule.forRoot(roteConfig)
   ],

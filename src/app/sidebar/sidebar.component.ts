@@ -6,14 +6,21 @@ import{ Router }  from '@angular/router'
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+	private routers;
 
-  constructor(public router:Router) { }
 
-  ngOnInit() {
+  constructor(public router:Router) {
+
   }
 
-  nav(url:string){
-  	 this.router.navigate([url]);
+  ngOnInit() {
+  	this.routers=[{"id":1,"name":"首页","url":'home'},
+  				  {"id":2,"name":"股票管理","url":'tableList'},
+  				  {"id":3,"name":"动画","url":'animate'}]
+  }
+
+  nav(router){
+  	 this.router.navigate([router.url]);
   }
 
 }

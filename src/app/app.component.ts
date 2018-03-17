@@ -13,7 +13,7 @@ import  'rxjs/add/operator/filter';
 })
 //ts类
 export class AppComponent implements OnInit{
-  pageTitle : '';
+  private  pageTitle : '';
 
   constructor(private router:Router) {
   		router.events
