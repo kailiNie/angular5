@@ -1,7 +1,6 @@
 /**
  * 模块
  */
- 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,13 +14,13 @@ import { StartComponent } from './control/start/start.component' ;
 import { Routes,RouterModule} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AnimateComponent } from './animate/animate.component'  ;
-
+import { HttpModule } from '@angular/http';
+import { HttpServices } from './common-services/http-service/http.service';
 
 const roteConfig :Routes = [
   {path:'home',component:HomeComponent},
-  {path :'tableList',component:TableListComponent } ,
-  {path:'animate',component:AnimateComponent}
-]
+  {path:'animate',component:AnimateComponent},
+];
 
 @NgModule({
   declarations: [ //组件.指令。管�, HeaderComponent�
@@ -38,10 +37,10 @@ const roteConfig :Routes = [
   imports: [
     BrowserModule, //依赖模块
     BrowserAnimationsModule,
-    // HttpModule
+     HttpModule,
     RouterModule.forRoot(roteConfig)
   ],
-  providers: [],//服务
+  providers: [HttpServices],//服务
   bootstrap: [AppComponent]//模块主组件
 })
 export class AppModule { }

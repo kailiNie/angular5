@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-
+//table组件 具有排序功能 传进来表头
+import { Component, OnInit,Input,Output } from '@angular/core';
+import { Http } from '@angular/http';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { HttpServices } from '../../common-services/http-service/http.service'
+import "rxjs/Rx"
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-table-list',
@@ -9,39 +13,65 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 
 export class TableListComponent implements OnInit {
-  
-  private stocks:Array<Stock>;
+  //  API信息 
+   @Input()
+   public tableParams : any;
 
-  constructor() {}
-  //初始化
-  ngOnInit() {
-    this.stocks = [
-      new Stock(1,'测试1'，3.5),
-      new Stock(2,'测试2'，1.5),
-      new Stock(3,'测试3'，2.5),
-      new Stock(4,'测试4'，3.5),
-      new Stock(5,'测试5'，4.5)
-    ]
-  }
-
-
-  delete(stock){
-    const { id } = stock;
-    // const stockObj  = new Stock(1,'ss',2);
-    this.stocks = this.stocks.splice(0,this.stocks.length-1);
-    // this.stocks = stockObj.deleteStock(this.stocks,id); 
-    console.log(this.stocks)
-  }
-}
-
-
-
-
-export class Stock  {
-	constructor(public id:number,public name:string,public rating:number) {}
-  deleteStock(stock,id){
-
-        return stock.splice(0);
+   public stocks :any[] = [];
+ 
+  constructor(public http:Http) {
+    console.log(this.tableParams);
  
   }
+  //初始化
+  ngOnInit() {
+    this.query();
+  }
+
+  query(){
+  	this.http.get(this.tableParams.api).map(response => response.json()).subscribe(
+  		data => this.stocks = data
+  	)
+  }
+  //查询查询数据
+  reload(){
+  	this.query();
+  }
+  //进度条
+  getColor(re){
+    return  `${re}%`
+  }
+
+  sort (params,property){
+    if(params === 'drop' ){
+       this.stocks = this.stocks.sort(this.riseSort(property));
+    }else{
+      this.stocks = this.stocks.sort(this.dropSort(property));
+    }
+        
+    
+  }
+   //降序
+  dropSort(property){
+    return function(a,b){
+        var value1 = a[property];
+        var value2 = b[property];
+        return value1 - value2;
+    }
+  }
+  //升序
+ riseSort(property){
+    return function(a,b){
+        var value1 = a[property];
+        var value2 = b[property];
+      return value2 - value1;
+    }
+  }
+
+ 
 }
+
+
+
+
+ 
